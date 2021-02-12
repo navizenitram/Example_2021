@@ -1,0 +1,17 @@
+companies:
+  - name: Acme Corp
+    id: acme
+    pastYearRevenue: 1000000
+    parent: ~
+  - name: Wonka Industries
+    id: wonka
+    pastYearRevenue: 1500000
+    parent: ~
+  - name: Sky Net
+    id: skynet
+    pastYearRevenue: 1500000
+    parent: ~
+  - name: Wayne Enterprises
+    id: wayne
+    pastYearRevenue: 10000000
+    parent: acme

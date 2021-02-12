@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  koalaboox-test:
+    build: .
+    working_dir: /app
+    volumes:
+      - ./:/app
+

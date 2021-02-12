@@ -1,0 +1,12 @@
+{
+    "name": "koalaboox/backend-test-factoring",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
