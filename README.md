@@ -13,7 +13,7 @@ Before we can provide such a loan, we must validate that both the customer and t
 
 Please adapt and complete the code begun in [FactoringTest.php](/tests/FactoringTest.php) Some notes:
 
-- Please don't use any database.  Keep everything in memory.
+- Please don't use any database.  Keep everything in memory.  You can fetch data about the companies from [/tests/data.yml](/tests/data.yml)
 - The test code and the FactoringService class are only there to make the goals of this exercise clear.  Feel free to modify 
   in any way you see fit, or to get rid of them all together.
 - The focus of this test is object design -- while this problem could probably be resolved in a short block of code, 
