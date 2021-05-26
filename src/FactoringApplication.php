@@ -6,8 +6,8 @@ use App\Application\Factoring\Exceptions\DebtorLimitException;
 use App\Application\Factoring\Exceptions\GlobalLendingException;
 use App\Application\Factoring\Exceptions\MontlyRevenueException;
 use App\Application\Factoring\Exceptions\SubsidiariesCompaniesException;
-use App\Application\Factoring\FactoringRequest;
 use App\Application\Factoring\Factoring;
+use App\Application\Factoring\FactoringRequest;
 use App\Application\Factoring\FactoringResponse;
 use App\Repository\CompanyRepository;
 
@@ -33,7 +33,6 @@ class FactoringApplication
             $factoring = new Factoring($this->companyRepository);
             $factoringResponse = $factoring->execute($factoringRequest);
             $this->currentGlobalLending = $factoringResponse->getCurrentGlobalLending();
-
         } catch (DebtorLimitException $e) {
             //TODO: Implement logger
         } catch (GlobalLendingException $e) {
@@ -45,11 +44,5 @@ class FactoringApplication
         } finally {
             return $factoringResponse;
         }
-
-
-
-
-
-
     }
 }
