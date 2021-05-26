@@ -2,6 +2,10 @@
 
 namespace App;
 
+use App\Application\Factoring\Exceptions\DebtorLimitException;
+use App\Application\Factoring\Exceptions\GlobalLendingException;
+use App\Application\Factoring\Exceptions\MontlyRevenueException;
+use App\Application\Factoring\Exceptions\SubsidiariesCompaniesException;
 use App\Application\Factoring\FactoringRequest;
 use App\Application\Factoring\Factoring;
 use App\Application\Factoring\FactoringResponse;
@@ -19,18 +23,33 @@ class FactoringApplication
 
     public function requestFactoring(string $customer, string $debtor, int $factoringValue): FactoringResponse
     {
+        $factoringResponse = new FactoringResponse();
         $factoringRequest = new FactoringRequest();
         $factoringRequest->setCurrentGlobalLending($this->currentGlobalLending);
         $factoringRequest->setCustomerId($customer);
         $factoringRequest->setDebtorId($debtor);
         $factoringRequest->setFactoringValue($factoringValue);
+        try {
+            $factoring = new Factoring($this->companyRepository);
+            $factoringResponse = $factoring->execute($factoringRequest);
+            $this->currentGlobalLending = $factoringResponse->getCurrentGlobalLending();
 
-        $factoring = new Factoring($this->companyRepository);
-        $factoringResponse = $factoring->execute($factoringRequest);
+        } catch (DebtorLimitException $e) {
+            //TODO: Implement logger
+        } catch (GlobalLendingException $e) {
+            //TODO: Implement logger
+        } catch (MontlyRevenueException $e) {
+            //TODO: Implement logger
+        } catch (SubsidiariesCompaniesException $e) {
+            //TODO: Implement logger
+        } finally {
+            return $factoringResponse;
+        }
 
-        $this->currentGlobalLending = $factoringResponse->getCurrentGlobalLending();
 
-        return $factoringResponse;
+
+
+
 
     }
 }

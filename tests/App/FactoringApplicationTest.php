@@ -1,8 +1,9 @@
 <?php
+namespace App\Tests;
 
-namespace Test;
-
-
+use App\Application\Factoring\Exceptions\GlobalLendingException;
+use App\Application\Factoring\Exceptions\MontlyRevenueException;
+use App\Application\Factoring\Exceptions\SubsidiariesCompaniesException;
 use App\FactoringApplication;
 use PHPUnit\Framework\TestCase;
 
@@ -15,19 +16,19 @@ class FactoringApplicationTest extends TestCase
         // should be done inside.
         $factoringApp = new FactoringApplication();
         $response = $factoringApp->requestFactoring('acme', 'skynet', 12000);
-        $this->assertTrue($response->isAllowed(), $response->getErrorMessage());
+        $this->assertTrue($response->isAllowed());
 
         $response = $factoringApp->requestFactoring('acme', 'skynet', 13000);
-        $this->assertFalse($response->isAllowed(), $response->getErrorMessage());
+        $this->expectException(MontlyRevenueException::class);
 
         $response = $factoringApp->requestFactoring('wayne', 'wonka', 50000);
-        $this->assertTrue($response->isAllowed(), $response->getErrorMessage());
+        $this->assertTrue($response->isAllowed());
 
         $response = $factoringApp->requestFactoring('wayne', 'wonka', 50000);
-        $this->assertFalse($response->isAllowed(), $response->getErrorMessage());
+        $this->expectException(GlobalLendingException::class);
 
         $response= $factoringApp->requestFactoring('acme', 'wayne', 1);
-        $this->assertFalse($response->isAllowed(), $response->getErrorMessage());
+        $this->expectException(SubsidiariesCompaniesException::class);
 
     }
 

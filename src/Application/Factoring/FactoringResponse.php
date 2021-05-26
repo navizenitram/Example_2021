@@ -6,20 +6,18 @@ class FactoringResponse
 {
     private $isAllowed;
     private $currentGlobalLending;
-    private $errorMessage = '';
+    private $error = true;
 
 
-    public function getErrorMessage(): string
+    public function isError(): bool
     {
-        return $this->errorMessage;
+        return $this->error;
     }
 
-
-    public function setErrorMessage($errorMessage): void
+    public function setError(bool $error): void
     {
-        $this->errorMessage = $errorMessage;
+        $this->error = $error;
     }
-
 
     public function isAllowed(): bool
     {

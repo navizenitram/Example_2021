@@ -1,9 +1,14 @@
-version: '3'
-
+version: '3.5'
 services:
-  koalaboox-test:
-    build: .
-    working_dir: /app
+  php-fpm:
+    image: php74
+    container_name: php74
+    build:
+      context: ./
+      dockerfile: ./Docker/Dockerfile
     volumes:
-      - ./:/app
-
+      - ./:/var/www
+    ports:
+      - "9999:9000"
+    environment:
+      APP_ENV: prod

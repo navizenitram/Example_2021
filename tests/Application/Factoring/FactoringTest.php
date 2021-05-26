@@ -2,6 +2,7 @@
 
 namespace App\Tests\Application\Factoring;
 
+use App\Application\Factoring\Exceptions\GlobalLendingException;
 use App\Application\Factoring\Factoring;
 use App\Application\Factoring\FactoringRequest;
 use App\Application\Factoring\FactoringResponse;
@@ -24,14 +25,14 @@ class FactoringTest extends TestCase
         $factoringValue = 35000;
 
         $response = $this->factoring($customer, $debtor, $factoringValue);
-        $this->assertTrue($response->isAllowed(), $response->getErrorMessage());
+        $this->assertTrue($response->isAllowed());
 
         $customer = 'trip';
         $debtor   = 'home';
         $factoringValue = 40000;
 
         $response = $this->factoring($customer, $debtor, $factoringValue);
-        $this->assertFalse($response->isAllowed(), $response->getErrorMessage());
+        $this->expectException(GlobalLendingException::class);
     }
 
     private function factoring(string $customer, string $debtor, int $factoringValue): FactoringResponse
@@ -50,7 +51,7 @@ class FactoringTest extends TestCase
         return $factoringResponse;
     }
 
-    protected function setUp() {
+    protected function setUp():void {
 
         parent::setUp();
 
